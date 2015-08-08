@@ -1,0 +1,15 @@
+[Unit]
+Description=Docker Registry
+Documentation=https://github.com/74th/systemd-docker-registry
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docke stot registry
+ExecStartPre=-/usr/bin/docker rm registry
+ExecStartPre=/usr/bin/docker pull registry
+ExecStart=/usr/bin/docker run --name registry -p 5000:5000 library/registry
+
+[Install]
+WantedBy=multi-user.target
